@@ -3,17 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="style.css">
   <title>Tic-Tac-Toe</title>
 </head>
 <body>
   <div class="container">
+    <button class="rules">How to play</button>
+      <div class="rule-set">
+        <h2>Tic Tac Toe Rules</h2>
+        <p>- Players to go first are selected at random</p>
+        <p>- Player 1 is 'X'. Player 2 is 'O'.</p>
+        <p>- Connect three X's or O's in a row to win!</p>
+        <p class="close-rules">x</p>
+      </div>
+    <div class="player1-wins">
+      <h1></h1>
+      <button class="button new-game">New Game</button>
+      
+    </div>
+    <div class="player2-wins">
+      <h1></h1>
+      <button class="button new-game">New Game</button>
+    </div>
+    <div class="tie-game">
+      <h1></h1>
+      <button class="button new-game">New Game</button>
+    </div>
     <div class="header">
-    <h1>Tic Tac Toe</h1>
-    <button class="pvp">Player Vs. Player</button>
-    <button class="pve">Player Vs. CPU</button>
+    <h1 class="header-text">Tic Tac Toe</h1>
+    <!-- <button class="pvp">Player Vs. Player</button>
+    <button class="pve">Player Vs. CPU</button> -->
     <button class="button play-game">Start game</button>
-    <button class="button new-game">New Game</button>
     </div>
 
     <div class="players">
