@@ -1,14 +1,14 @@
 // Gameboard to control x's and o's
   const gameBoard = [
-    {clicked: 'empty'},
-    {clicked: 'empty'},
-    {clicked: 'empty'},
-    {clicked: 'empty'},
-    {clicked: 'empty'},
-    {clicked: 'empty'},
-    {clicked: 'empty'},
-    {clicked: 'empty'},
-    {clicked: 'empty'},
+    {clicked: 'empty', position: 0},
+    {clicked: 'empty', position: 1},
+    {clicked: 'empty', position: 2},
+    {clicked: 'empty', position: 3},
+    {clicked: 'empty', position: 4},
+    {clicked: 'empty', position: 5},
+    {clicked: 'empty', position: 6},
+    {clicked: 'empty', position: 7},
+    {clicked: 'empty', position: 8},
     ]
 
   // IIFEs for each game function
@@ -46,18 +46,77 @@ const gameFunctions = (() => {
     })
   }
 
+    const createGameBoardVsCpu = () => {
+    gameBoard.forEach((box, i) => {
+      const board = document.querySelector('.game-board')
+      let newBox = document.createElement('div')
+      newBox.setAttribute('id', i)
+      newBox.setAttribute('class', 'game-block')
+
+      board.appendChild(newBox).addEventListener('click', (e) => {
+        if (gameBoard[e.target.id].clicked !== 'empty') {
+          alert('Pick a spot that hasn\'t been selected')
+        } else {
+          if (player1.isTurn) {
+            newBox.textContent = 'X'
+            player1.isTurn = false
+            player2.isTurn = true
+            gameBoard[e.target.id].clicked = 'x'
+            checkXWinner(gameBoard)
+            changeBackground()
+            startCpuTurn()
+          } 
+        }
+      })
+    })
+  }
+
+  const stopTurns = () => {
+    player1.isTurn = false;
+    player2.isTurn = false;
+  }
+
+  const CpuTurn = () => {
+
+  const availablePositions = gameBoard.filter((box) => {
+      return box.clicked === 'empty'
+    })
+    if (player2.isTurn) {
+      const selection = Math.floor(Math.random() * availablePositions.length)
+      const boxSelection = availablePositions[selection].position
+      gameBoard.forEach((box, i) => {
+        if (box.position === boxSelection) {
+          gameBoard[i].clicked = 'o'
+          document.getElementById(i).textContent = 'O'
+        }
+      })
+      player2.isTurn = false
+      player1.isTurn = true
+      checkOWinner(gameBoard)
+      checkTie(gameBoard)
+      changeBackground()
+    }
+  }
+
+    const startCpuTurn = () => {
+      setTimeout(CpuTurn, 1000)
+    }
+
   // Result if player 1 wins
   const player1Wins = () => {
+    stopTurns()
     const p1 = document.querySelector('.player1-wins h1')
     const p2 = document.querySelector('.player1-wins')
     p1.textContent = `${player1.name} wins the game!`
     p2.style.display = "block"
     player1.wins += 1
     renderWins()
+
   }
 
   // Result if player 2 wins
   const player2Wins = () => {
+    stopTurns()
     const p1 = document.querySelector('.player2-wins h1')
     const p2 = document.querySelector('.player2-wins')
     p1.textContent = `${player2.name} wins the game!`
@@ -68,6 +127,7 @@ const gameFunctions = (() => {
 
   // If the game results in a tie
   const tieGame = () => {
+    stopTurns()
     const p1 = document.querySelector('.tie-game h1')
     const p2 = document.querySelector('.tie-game')
     p1.textContent = `The game ends in a TIE!`
@@ -177,6 +237,15 @@ const gameFunctions = (() => {
     player2.wins = 0
     player1.name = prompt('Enter Player 1\'s name:')
     player2.name = prompt('Enter Player 1\'s name:')
+
+    if (!player1.name) {
+      player1.name = 'Player 1'
+    }
+
+    if (!player2.name) {
+      player2.name = 'Player 2'
+    }
+
     gameBoard.forEach(box => box.clicked = 'empty')
 
     document.querySelector('.game-board').innerHTML = ''
@@ -200,8 +269,12 @@ const gameFunctions = (() => {
     document.querySelector('.player2').style.background = '#cdcdcd'
     document.querySelector('.player2-wins').style.display = 'none'
     document.querySelector('.tie-game').style.display = 'none'
-    gameFlow()
 
+    if (vsCpu) {
+      gameFlowVsCpu()
+    } else {
+      gameFlow()
+    }
   }
 
   // Change background depending on who's turn it is
@@ -248,19 +321,43 @@ const gameFunctions = (() => {
       p1Query.style.boxShadow = "0 6px 8px rgba(0, 0, 0, .6)"
       p1Query.style.transform = "translateY(0) scale(1)"
     }
+
+    // if (player2.isTurn && vsCpu) {
+    //   CpuTurn()
+    // }
   }
 
-  return {createGameBoard, CreatePlayer1, CreatePlayer2, newGame, whosFirst, renderWins, renderNames, newRound}
+  const displayGameChoice = () => {
+    document.querySelector('.play-game').style.display = 'none'
+    document.querySelector('.game-selection').style.display = 'block'
+    document.querySelector('.player1-wins').style.display = 'none'
+    document.querySelector('.player2-wins').style.display = 'none'
+    document.querySelector('.tie-game').style.display = 'none'
+  }
+
+  const createCPU = () => {
+    let name = 'CPU'
+    let isTurn = false
+    let wins = 0
+    return {name, isTurn, wins}
+  }
+
+  return {createGameBoard, CreatePlayer1, CreatePlayer2, newGame, whosFirst, renderWins, renderNames, newRound, createCPU, displayGameChoice, createGameBoardVsCpu, startCpuTurn}
 })()
 
 // Begin the game
 const gameFlow = () => {
   document.querySelector('.play-game').style.display = 'none'
   document.querySelector('.new-game').style.display = "inline-block"
+  document.querySelector('.game-selection').style.display = 'none'
+
   if (!playersCreated) {
     player1 = gameFunctions.CreatePlayer1()
     player2 =  gameFunctions.CreatePlayer2()
     playersCreated = true
+  } else if (player2.name === 'CPU') {
+    player2.name = prompt('Enter Player 1\'s name:')
+    player2.name = prompt('Enter Player 2\'s name:')
   }
 
   document.querySelector('.player1').textContent = player1.name
@@ -271,18 +368,66 @@ const gameFlow = () => {
   gameFunctions.createGameBoard()
 }
 
-document.querySelector('.play-game').addEventListener('click', gameFlow)
-document.querySelectorAll('.new-game').forEach((button) => button.addEventListener('click', gameFunctions.newGame))
+const gameFlowVsCpu = () => {
+  document.querySelector('.play-game').style.display = 'none'
+  document.querySelector('.new-game').style.display = "inline-block"
+  if (!playersCreated) {
+    player1 = gameFunctions.CreatePlayer1()
+    player2 =  gameFunctions.createCPU()
+    playersCreated = true
+  }
+
+  document.querySelector('.player1').textContent = player1.name
+  document.querySelector('.player2').textContent = player2.name
+  gameFunctions.renderWins()
+  gameFunctions.renderNames()
+  gameFunctions.whosFirst()
+  gameFunctions.createGameBoardVsCpu()
+  if (player2.isTurn) {
+    gameFunctions.startCpuTurn()
+  }
+}
+
+
+
+document.querySelector('.play-game').addEventListener('click', gameFunctions.displayGameChoice)
+
+document.querySelector('.pvp').addEventListener('click', () => {
+  vsCpu = false
+  document.querySelector('.game-selection').style.display = 'none'
+  gameFlow()
+})
+
+document.querySelector('.pve').addEventListener('click', () => {
+  vsCpu = true
+  document.querySelector('.game-selection').style.display = 'none'
+  gameFlowVsCpu()
+})
+
+document.querySelectorAll('.new-game').forEach((button) => button.addEventListener('click', () => {
+  player1.wins = 0
+  player2.wins = 0
+  playersCreated = false
+  document.querySelector('.game-board').innerHTML = ''
+  gameBoard.forEach((box) => box.clicked = 'empty')
+  gameFunctions.displayGameChoice()
+} ))
+
 document.querySelectorAll('.new-round').forEach((button) => button.addEventListener('click', gameFunctions.newRound))
+
+
 document.querySelector('.rules').addEventListener('click', (e) => {
   e.target.nextElementSibling.style.display = 'block'
 })
+
 document.querySelector('.close-rules').addEventListener('click', (e) => {
   e.target.parentElement.style.display = 'none'
 })
 
 
+
 let playersCreated = false
+let vsCpu = false
 
 
 
