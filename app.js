@@ -100,10 +100,190 @@ const gameFunctions = (() => {
 
   // One second delay for CPU's turn
   const startCpuTurn = () => {
-    setTimeout(CpuTurn, 1000)
+    if (vsSmartCpu) {
+      setTimeout(smartCpuDelay, 1000)
+    } else {
+      setTimeout(CpuTurn, 1000)
+    }
   }
 
-  // Result if player 1 wins
+  const smartCpuDelay = () => {
+    smartCpuTurn(gameBoard)
+  }
+
+  // Make smart selection for CPU's turn: First priority is a winning play. Second priority is blocking a winning play by X. If neither available, play random available slot
+  const smartCpuTurn = (g) => {
+    if (player2.isTurn) {
+
+      if (g[1].clicked === 'o' && g[2].clicked === 'o' && g[0].clicked === 'empty') {
+        gameBoard[0].clicked = 'o' 
+        document.getElementById('0').textContent = 'O'
+      } else if (g[0].clicked === 'o' && g[2].clicked === 'o' && g[1].clicked === 'empty') {
+        gameBoard[1].clicked = 'o'
+        document.getElementById('1').textContent = 'O'
+      } else if (g[0].clicked === 'o' && g[1].clicked === 'o' && g[2].clicked === 'empty') {
+        gameBoard[2].clicked = 'o'
+        document.getElementById('2').textContent = 'O'
+      } else if (g[4].clicked === 'o' && g[5].clicked === 'o' && g[3].clicked === 'empty') {
+        gameBoard[3].clicked = 'o'
+        document.getElementById('3').textContent = 'O'
+      } else if (g[3].clicked === 'o' && g[5].clicked === 'o' && g[4].clicked === 'empty') {
+        gameBoard[4].clicked = 'o'
+        document.getElementById('4').textContent = 'O'
+      } else if (g[3].clicked === 'o' && g[4].clicked === 'o' && g[5].clicked === 'empty') {
+        gameBoard[5].clicked = 'o'
+        document.getElementById('5').textContent = 'O'
+      } else if (g[7].clicked === 'o' && g[8].clicked === 'o' && g[6].clicked === 'empty') {
+        gameBoard[6].clicked = 'o'
+        document.getElementById('6').textContent = 'O'
+      } else if (g[6].clicked === 'o' && g[8].clicked === 'o' && g[7].clicked === 'empty') {
+        gameBoard[7].clicked = 'o'
+        document.getElementById('7').textContent = 'O'
+      } else if (g[6].clicked === 'o' && g[7].clicked === 'o' && g[8].clicked === 'empty') {
+        gameBoard[8].clicked = 'o'
+        document.getElementById('8').textContent = 'O'
+      } else if (g[3].clicked === 'o' && g[6].clicked === 'o' && g[0].clicked === 'empty') {
+        gameBoard[0].clicked = 'o'
+        document.getElementById('0').textContent = 'O'
+      } else if (g[0].clicked === 'o' && g[6].clicked === 'o' && g[3].clicked === 'empty') {
+        gameBoard[3].clicked = 'o'
+        document.getElementById('3').textContent = 'O'
+      } else if (g[0].clicked === 'o' && g[3].clicked === 'o' && g[6].clicked === 'empty') {
+        gameBoard[6].clicked = 'o'
+        document.getElementById('6').textContent = 'O'
+      } else if (g[4].clicked === 'o' && g[7].clicked === 'o' && g[1].clicked === 'empty') {
+        gameBoard[1].clicked = 'o'
+        document.getElementById('1').textContent = 'O'
+      } else if (g[1].clicked === 'o' && g[7].clicked === 'o' && g[4].clicked === 'empty') {
+        gameBoard[4].clicked = 'o'
+        document.getElementById('4').textContent = 'O'
+      } else if (g[1].clicked === 'o' && g[4].clicked === 'o' && g[7].clicked === 'empty') {
+        gameBoard[7].clicked = 'o'
+        document.getElementById('7').textContent = 'O'
+      } else if (g[4].clicked === 'o' && g[8].clicked === 'o' && g[0].clicked === 'empty') {
+        gameBoard[0].clicked = 'o'
+        document.getElementById('0').textContent = 'O'
+      } else if (g[0].clicked === 'o' && g[8].clicked === 'o' && g[4].clicked === 'empty') {
+        gameBoard[4].clicked = 'o'
+        document.getElementById('4').textContent = 'O'
+      } else if (g[0].clicked === 'o' && g[4].clicked === 'o' && g[8].clicked === 'empty') {
+        gameBoard[8].clicked = 'o'
+        document.getElementById('8').textContent = 'O'
+      } else if (g[5].clicked === 'o' && g[8].clicked === 'o' && g[2].clicked === 'empty') {
+        gameBoard[2].clicked = 'o'
+        document.getElementById('2').textContent = 'O'
+      } else if (g[2].clicked === 'o' && g[8].clicked === 'o' && g[5].clicked === 'empty') {
+        gameBoard[5].clicked = 'o'
+        document.getElementById('5').textContent = 'O'
+      } else if (g[2].clicked === 'o' && g[5].clicked === 'o' && g[8].clicked === 'empty') {
+        gameBoard[8].clicked = 'o'
+        document.getElementById('8').textContent = 'O'
+      } else if (g[4].clicked === 'o' && g[6].clicked === 'o' && g[2].clicked === 'empty') {
+        gameBoard[2].clicked = 'o'
+        document.getElementById('2').textContent = 'O'
+      } else if (g[2].clicked === 'o' && g[6].clicked === 'o' && g[4].clicked === 'empty') {
+        gameBoard[4].clicked = 'o'
+        document.getElementById('4').textContent = 'O'
+      } else if (g[2].clicked === 'o' && g[4].clicked === 'o' && g[6].clicked === 'empty') {
+        gameBoard[6].clicked = 'o'
+        document.getElementById('6').textContent = 'O'
+        // Break for X
+      } else if (g[1].clicked === 'x' && g[2].clicked === 'x' && g[0].clicked === 'empty') {
+        gameBoard[0].clicked = 'o'
+        document.getElementById('0').textContent = 'O'
+      } else if (g[0].clicked === 'x' && g[2].clicked === 'x' && g[1].clicked === 'empty') {
+        gameBoard[1].clicked = 'o'
+        document.getElementById('1').textContent = 'O'
+      } else if (g[0].clicked === 'x' && g[1].clicked === 'x' && g[2].clicked === 'empty') {
+        gameBoard[2].clicked = 'o'
+        document.getElementById('2').textContent = 'O'
+      } else if (g[4].clicked === 'x' && g[5].clicked === 'x' && g[3].clicked === 'empty') {
+        gameBoard[3].clicked = 'o'
+        document.getElementById('3').textContent = 'O'
+      } else if (g[3].clicked === 'x' && g[5].clicked === 'x' && g[4].clicked === 'empty') {
+        gameBoard[4].clicked = 'o'
+        document.getElementById('4').textContent = 'O'
+      } else if (g[3].clicked === 'x' && g[4].clicked === 'x' && g[5].clicked === 'empty') {
+        gameBoard[5].clicked = 'o'
+        document.getElementById('5').textContent = 'O'
+      } else if (g[7].clicked === 'x' && g[8].clicked === 'x' && g[6].clicked === 'empty') {
+        gameBoard[6].clicked = 'o'
+        document.getElementById('6').textContent = 'O'
+      } else if (g[6].clicked === 'x' && g[8].clicked === 'x' && g[7].clicked === 'empty') {
+        gameBoard[7].clicked = 'o'
+        document.getElementById('7').textContent = 'O'
+      } else if (g[6].clicked === 'x' && g[7].clicked === 'x' && g[8].clicked === 'empty') {
+        gameBoard[8].clicked = 'o'
+        document.getElementById('8').textContent = 'O'
+      } else if (g[3].clicked === 'x' && g[6].clicked === 'x' && g[0].clicked === 'empty') {
+        gameBoard[0].clicked = 'o'
+        document.getElementById('0').textContent = 'O'
+      } else if (g[0].clicked === 'x' && g[6].clicked === 'x' && g[3].clicked === 'empty') {
+        gameBoard[3].clicked = 'o'
+        document.getElementById('3').textContent = 'O'
+      } else if (g[0].clicked === 'x' && g[3].clicked === 'x' && g[6].clicked === 'empty') {
+        gameBoard[6].clicked = 'o'
+        document.getElementById('6').textContent = 'O'
+      } else if (g[4].clicked === 'x' && g[7].clicked === 'x' && g[1].clicked === 'empty') {
+        gameBoard[1].clicked = 'o'
+        document.getElementById('1').textContent = 'O'
+      } else if (g[1].clicked === 'x' && g[7].clicked === 'x' && g[4].clicked === 'empty') {
+        gameBoard[4].clicked = 'o'
+        document.getElementById('4').textContent = 'O'
+      } else if (g[1].clicked === 'x' && g[4].clicked === 'x' && g[7].clicked === 'empty') {
+        gameBoard[7].clicked = 'o'
+        document.getElementById('7').textContent = 'O'
+      } else if (g[4].clicked === 'x' && g[8].clicked === 'x' && g[0].clicked === 'empty') {
+        gameBoard[0].clicked = 'o'
+        document.getElementById('0').textContent = 'O'
+      } else if (g[0].clicked === 'x' && g[8].clicked === 'x' && g[4].clicked === 'empty') {
+        gameBoard[4].clicked = 'o'
+        document.getElementById('4').textContent = 'O'
+      } else if (g[0].clicked === 'x' && g[4].clicked === 'x' && g[8].clicked === 'empty') {
+        gameBoard[8].clicked = 'o'
+        document.getElementById('8').textContent = 'O'
+      } else if (g[5].clicked === 'x' && g[8].clicked === 'x' && g[2].clicked === 'empty') {
+        gameBoard[2].clicked = 'o'
+        document.getElementById('2').textContent = 'O'
+      } else if (g[2].clicked === 'x' && g[8].clicked === 'x' && g[5].clicked === 'empty') {
+        gameBoard[5].clicked = 'o'
+        document.getElementById('5').textContent = 'O'
+      } else if (g[2].clicked === 'x' && g[5].clicked === 'x' && g[8].clicked === 'empty') {
+        gameBoard[8].clicked = 'o'
+        document.getElementById('8').textContent = 'O'
+      } else if (g[4].clicked === 'x' && g[6].clicked === 'x' && g[2].clicked === 'empty') {
+        gameBoard[2].clicked = 'o'
+        document.getElementById('2').textContent = 'O'
+      } else if (g[2].clicked === 'x' && g[6].clicked === 'x' && g[4].clicked === 'empty') {
+        gameBoard[4].clicked = 'o'
+        document.getElementById('4').textContent = 'O'
+      } else if (g[2].clicked === 'x' && g[4].clicked === 'x' && g[6].clicked === 'empty') {
+        gameBoard[6].clicked = 'o'
+        document.getElementById('6').textContent = 'O'
+      } else {
+        const availablePositions = gameBoard.filter((box) => {
+          return box.clicked === 'empty'
+        })
+        if (player2.isTurn) {
+          const selection = Math.floor(Math.random() * availablePositions.length)
+          const boxSelection = availablePositions[selection].position
+          gameBoard.forEach((box, i) => {
+            if (box.position === boxSelection) {
+              gameBoard[i].clicked = 'o'
+              document.getElementById(i).textContent = 'O'
+            }
+          })
+        }
+      }
+      player2.isTurn = false
+      player1.isTurn = true
+      checkOWinner(gameBoard)
+      checkTie(gameBoard)
+      changeBackground()
+    }
+  }
+
+  // Result if player 1 win
   const player1Wins = () => {
     stopTurns()
     const p1 = document.querySelector('.player1-wins h1')
@@ -112,7 +292,6 @@ const gameFunctions = (() => {
     p2.style.display = "block"
     player1.wins += 1
     renderWins()
-
   }
 
   // Result if player 2 wins
@@ -192,7 +371,7 @@ const gameFunctions = (() => {
 
   // Create player 1
   const CreatePlayer1 = () => {
-    let name = prompt('Enter Player 1\'s name:')
+    let name = prompt('Enter Player 1\'s name. (Leave blank for generic name)')
     !name ? name = 'Player 1' : name = name
     let isTurn = false
     let wins = 0
@@ -201,7 +380,7 @@ const gameFunctions = (() => {
 
   // Create player 2
   const CreatePlayer2 = () => {
-    let name = prompt('Enter Player 2\'s name:')
+    let name = prompt('Enter Player 2\'s name. (Leave blank for generic name)')
     !name ? name = 'Player 2' : name = name
     let isTurn = false
     let wins = 0
@@ -236,8 +415,8 @@ const gameFunctions = (() => {
     player2.isTurn = false
     player1.wins = 0
     player2.wins = 0
-    player1.name = prompt('Enter Player 1\'s name:')
-    player2.name = prompt('Enter Player 1\'s name:')
+    player1.name = prompt('Enter Player 1\'s name. (Leave blank for generic name)')
+    player2.name = prompt('Enter Player 1\'s name. (Leave blank for generic name')
 
     if (!player1.name) {
       player1.name = 'Player 1'
@@ -273,7 +452,9 @@ const gameFunctions = (() => {
 
     if (vsCpu) {
       gameFlowVsCpu()
-    } else {
+    } else if (vsSmartCpu) {
+      gameFlowVsCpuSmart()
+      } else {
       gameFlow()
     }
   }
@@ -341,7 +522,9 @@ const gameFunctions = (() => {
     return {name, isTurn, wins}
   }
 
-  return {createGameBoard, CreatePlayer1, CreatePlayer2, newGame, whosFirst, renderWins, renderNames, newRound, createCPU, displayGameChoice, createGameBoardVsCpu, startCpuTurn}
+  
+
+  return {createGameBoard, CreatePlayer1, CreatePlayer2, newGame, whosFirst, renderWins, renderNames, newRound, createCPU, displayGameChoice, createGameBoardVsCpu, startCpuTurn, smartCpuTurn}
 })()
 
 // Begin the game in a player vs player match
@@ -355,8 +538,8 @@ const gameFlow = () => {
     player2 =  gameFunctions.CreatePlayer2()
     playersCreated = true
   } else if (player2.name === 'CPU') {
-    player2.name = prompt('Enter Player 1\'s name:')
-    player2.name = prompt('Enter Player 2\'s name:')
+    player2.name = prompt('Enter Player 1\'s name. (Leave blank for generic name)')
+    player2.name = prompt('Enter Player 2\'s name. (Leave blank for generic name)')
   }
 
   document.querySelector('.player1').textContent = player1.name
@@ -371,10 +554,33 @@ const gameFlow = () => {
 const gameFlowVsCpu = () => {
   document.querySelector('.play-game').style.display = 'none'
   document.querySelector('.new-game').style.display = "inline-block"
+  vsSmartCpu = false
   if (!playersCreated) {
     player1 = gameFunctions.CreatePlayer1()
     player2 =  gameFunctions.createCPU()
     playersCreated = true
+  }
+  document.querySelector('.player1').textContent = player1.name
+  document.querySelector('.player2').textContent = player2.name
+  gameFunctions.renderWins()
+  gameFunctions.renderNames()
+  gameFunctions.whosFirst()
+  gameFunctions.createGameBoardVsCpu()
+  if (player2.isTurn) {
+    gameFunctions.startCpuTurn()
+  }
+}
+
+// Begin the game in a player vs Smart CPU match
+const gameFlowVsCpuSmart = () => {
+  document.querySelector('.play-game').style.display = 'none'
+  document.querySelector('.new-game').style.display = "inline-block"
+  if (!playersCreated) {
+    player1 = gameFunctions.CreatePlayer1()
+    player2 =  gameFunctions.createCPU()
+    playersCreated = true
+    vsSmartCpu = true
+    vsCpu = false
   }
 
   document.querySelector('.player1').textContent = player1.name
@@ -387,6 +593,11 @@ const gameFlowVsCpu = () => {
     gameFunctions.startCpuTurn()
   }
 }
+
+document.querySelector('.pve-smart').addEventListener('click', () => {
+  document.querySelector('.game-selection').style.display = 'none'
+  gameFlowVsCpuSmart()
+})
 
 
 
@@ -427,81 +638,7 @@ document.querySelector('.close-rules').addEventListener('click', (e) => {
 
 let playersCreated = false
 let vsCpu = false
+let vsSmartCpu = false
 
 
 
-const smartCpuPlay = () => {
-  if (g[1].clicked === 'o' && g[2].clicked === 'o') {
-    gameBoard[0].clicked = 'o'
-    document.getElementById('0').textContent = 'O'
-  } else if (g[0].clicked === 'o' && g[2].clicked === 'o') {
-    gameBoard[1].clicked = 'o'
-    document.getElementById('1').textContent = 'O'
-  } else if (g[0].clicked === 'o' && g[1].clicked === 'o') {
-    gameBoard[2].clicked = 'o'
-    document.getElementById('2').textContent = 'O'
-  } else if (g[4].clicked === 'o' && g[5].clicked === 'o') {
-    gameBoard[3].clicked = 'o'
-    document.getElementById('3').textContent = 'O'
-  } else if (g[3].clicked === 'o' && g[5].clicked === 'o') {
-    gameBoard[4].clicked = 'o'
-    document.getElementById('4').textContent = 'O'
-  } else if (g[3].clicked === 'o' && g[4].clicked === 'o') {
-    gameBoard[5].clicked = 'o'
-    document.getElementById('5').textContent = 'O'
-  } else if (g[7].clicked === 'o' && g[8].clicked === 'o') {
-    gameBoard[6].clicked = 'o'
-    document.getElementById('6').textContent = 'O'
-  } else if (g[6].clicked === 'o' && g[8].clicked === 'o') {
-    gameBoard[7].clicked = 'o'
-    document.getElementById('7').textContent = 'O'
-  } else if (g[6].clicked === 'o' && g[7].clicked === 'o') {
-    gameBoard[8].clicked = 'o'
-    document.getElementById('8').textContent = 'O'
-  } else if (g[3].clicked === 'o' && g[6].clicked === 'o') {
-    gameBoard[0].clicked = 'o'
-    document.getElementById('0').textContent = 'O'
-  } else if (g[0].clicked === 'o' && g[6].clicked === 'o') {
-    gameBoard[3].clicked = 'o'
-    document.getElementById('3').textContent = 'O'
-  } else if (g[0].clicked === 'o' && g[3].clicked === 'o') {
-    gameBoard[6].clicked = 'o'
-    document.getElementById('6').textContent = 'O'
-  } else if (g[4].clicked === 'o' && g[7].clicked === 'o') {
-    gameBoard[1].clicked = 'o'
-    document.getElementById('1').textContent = 'O'
-  } else if (g[1].clicked === 'o' && g[7].clicked === 'o') {
-    gameBoard[4].clicked = 'o'
-    document.getElementById('4').textContent = 'O'
-  } else if (g[1].clicked === 'o' && g[4].clicked === 'o') {
-    gameBoard[7].clicked = 'o'
-    document.getElementById('7').textContent = 'O'
-  } else if (g[4].clicked === 'o' && g[8].clicked === 'o') {
-    gameBoard[0].clicked = 'o'
-    document.getElementById('0').textContent = 'O'
-  } else if (g[0].clicked === 'o' && g[8].clicked === 'o') {
-    gameBoard[4].clicked = 'o'
-    document.getElementById('4').textContent = 'O'
-  } else if (g[0].clicked === 'o' && g[4].clicked === 'o') {
-    gameBoard[8].clicked = 'o'
-    document.getElementById('8').textContent = 'O'
-  } else if (g[5].clicked === 'o' && g[8].clicked === 'o') {
-    gameBoard[2].clicked = 'o'
-    document.getElementById('2').textContent = 'O'
-  } else if (g[2].clicked === 'o' && g[8].clicked === 'o') {
-    gameBoard[5].clicked = 'o'
-    document.getElementById('5').textContent = 'O'
-  } else if (g[2].clicked === 'o' && g[5].clicked === 'o') {
-    gameBoard[8].clicked = 'o'
-    document.getElementById('8').textContent = 'O'
-  } else if (g[4].clicked === 'o' && g[6].clicked === 'o') {
-    gameBoard[2].clicked = 'o'
-    document.getElementById('2').textContent = 'O'
-  } else if (g[2].clicked === 'o' && g[6].clicked === 'o') {
-    gameBoard[4].clicked = 'o'
-    document.getElementById('4').textContent = 'O'
-  } else if (g[2].clicked === 'o' && g[4].clicked === 'o') {
-    gameBoard[6].clicked = 'o'
-    document.getElementById('6').textContent = 'O'
-  } 
-}
