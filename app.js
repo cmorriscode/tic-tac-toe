@@ -12,7 +12,6 @@
     ]
 
   // IIFEs for each game function
-
 const gameFunctions = (() => {
   // Create a div for each object in the gameboard and append to the browser
   const createGameBoard = () => {
@@ -45,7 +44,7 @@ const gameFunctions = (() => {
       })
     })
   }
-
+    // Create gameboard specific to playing vs the CPU
     const createGameBoardVsCpu = () => {
     gameBoard.forEach((box, i) => {
       const board = document.querySelector('.game-board')
@@ -71,13 +70,14 @@ const gameFunctions = (() => {
     })
   }
 
+  // Stop players from playing if someone won
   const stopTurns = () => {
     player1.isTurn = false;
     player2.isTurn = false;
   }
 
+  // CPU selects a random box from available selection
   const CpuTurn = () => {
-
   const availablePositions = gameBoard.filter((box) => {
       return box.clicked === 'empty'
     })
@@ -98,9 +98,10 @@ const gameFunctions = (() => {
     }
   }
 
-    const startCpuTurn = () => {
-      setTimeout(CpuTurn, 1000)
-    }
+  // One second delay for CPU's turn
+  const startCpuTurn = () => {
+    setTimeout(CpuTurn, 1000)
+  }
 
   // Result if player 1 wins
   const player1Wins = () => {
@@ -321,12 +322,9 @@ const gameFunctions = (() => {
       p1Query.style.boxShadow = "0 6px 8px rgba(0, 0, 0, .6)"
       p1Query.style.transform = "translateY(0) scale(1)"
     }
-
-    // if (player2.isTurn && vsCpu) {
-    //   CpuTurn()
-    // }
   }
 
+  // Let player select if player vs player or player vs CPU
   const displayGameChoice = () => {
     document.querySelector('.play-game').style.display = 'none'
     document.querySelector('.game-selection').style.display = 'block'
@@ -335,6 +333,7 @@ const gameFunctions = (() => {
     document.querySelector('.tie-game').style.display = 'none'
   }
 
+  // Create a CPU as player 2
   const createCPU = () => {
     let name = 'CPU'
     let isTurn = false
@@ -345,7 +344,7 @@ const gameFunctions = (() => {
   return {createGameBoard, CreatePlayer1, CreatePlayer2, newGame, whosFirst, renderWins, renderNames, newRound, createCPU, displayGameChoice, createGameBoardVsCpu, startCpuTurn}
 })()
 
-// Begin the game
+// Begin the game in a player vs player match
 const gameFlow = () => {
   document.querySelector('.play-game').style.display = 'none'
   document.querySelector('.new-game').style.display = "inline-block"
@@ -368,6 +367,7 @@ const gameFlow = () => {
   gameFunctions.createGameBoard()
 }
 
+// Begin the game in a player vs CPU match
 const gameFlowVsCpu = () => {
   document.querySelector('.play-game').style.display = 'none'
   document.querySelector('.new-game').style.display = "inline-block"
@@ -423,7 +423,6 @@ document.querySelector('.rules').addEventListener('click', (e) => {
 document.querySelector('.close-rules').addEventListener('click', (e) => {
   e.target.parentElement.style.display = 'none'
 })
-
 
 
 let playersCreated = false
