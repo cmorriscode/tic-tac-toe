@@ -430,3 +430,78 @@ let vsCpu = false
 
 
 
+const smartCpuPlay = () => {
+  if (g[1].clicked === 'o' && g[2].clicked === 'o') {
+    gameBoard[0].clicked = 'o'
+    document.getElementById('0').textContent = 'O'
+  } else if (g[0].clicked === 'o' && g[2].clicked === 'o') {
+    gameBoard[1].clicked = 'o'
+    document.getElementById('1').textContent = 'O'
+  } else if (g[0].clicked === 'o' && g[1].clicked === 'o') {
+    gameBoard[2].clicked = 'o'
+    document.getElementById('2').textContent = 'O'
+  } else if (g[4].clicked === 'o' && g[5].clicked === 'o') {
+    gameBoard[3].clicked = 'o'
+    document.getElementById('3').textContent = 'O'
+  } else if (g[3].clicked === 'o' && g[5].clicked === 'o') {
+    gameBoard[4].clicked = 'o'
+    document.getElementById('4').textContent = 'O'
+  } else if (g[3].clicked === 'o' && g[4].clicked === 'o') {
+    gameBoard[5].clicked = 'o'
+    document.getElementById('5').textContent = 'O'
+  } else if (g[7].clicked === 'o' && g[8].clicked === 'o') {
+    gameBoard[6].clicked = 'o'
+    document.getElementById('6').textContent = 'O'
+  } else if (g[6].clicked === 'o' && g[8].clicked === 'o') {
+    gameBoard[7].clicked = 'o'
+    document.getElementById('7').textContent = 'O'
+  } else if (g[6].clicked === 'o' && g[7].clicked === 'o') {
+    gameBoard[8].clicked = 'o'
+    document.getElementById('8').textContent = 'O'
+  } else if (g[3].clicked === 'o' && g[6].clicked === 'o') {
+    gameBoard[0].clicked = 'o'
+    document.getElementById('0').textContent = 'O'
+  } else if (g[0].clicked === 'o' && g[6].clicked === 'o') {
+    gameBoard[3].clicked = 'o'
+    document.getElementById('3').textContent = 'O'
+  } else if (g[0].clicked === 'o' && g[3].clicked === 'o') {
+    gameBoard[6].clicked = 'o'
+    document.getElementById('6').textContent = 'O'
+  } else if (g[4].clicked === 'o' && g[7].clicked === 'o') {
+    gameBoard[1].clicked = 'o'
+    document.getElementById('1').textContent = 'O'
+  } else if (g[1].clicked === 'o' && g[7].clicked === 'o') {
+    gameBoard[4].clicked = 'o'
+    document.getElementById('4').textContent = 'O'
+  } else if (g[1].clicked === 'o' && g[4].clicked === 'o') {
+    gameBoard[7].clicked = 'o'
+    document.getElementById('7').textContent = 'O'
+  } else if (g[4].clicked === 'o' && g[8].clicked === 'o') {
+    gameBoard[0].clicked = 'o'
+    document.getElementById('0').textContent = 'O'
+  } else if (g[0].clicked === 'o' && g[8].clicked === 'o') {
+    gameBoard[4].clicked = 'o'
+    document.getElementById('4').textContent = 'O'
+  } else if (g[0].clicked === 'o' && g[4].clicked === 'o') {
+    gameBoard[8].clicked = 'o'
+    document.getElementById('8').textContent = 'O'
+  } else if (g[5].clicked === 'o' && g[8].clicked === 'o') {
+    gameBoard[2].clicked = 'o'
+    document.getElementById('2').textContent = 'O'
+  } else if (g[2].clicked === 'o' && g[8].clicked === 'o') {
+    gameBoard[5].clicked = 'o'
+    document.getElementById('5').textContent = 'O'
+  } else if (g[2].clicked === 'o' && g[5].clicked === 'o') {
+    gameBoard[8].clicked = 'o'
+    document.getElementById('8').textContent = 'O'
+  } else if (g[4].clicked === 'o' && g[6].clicked === 'o') {
+    gameBoard[2].clicked = 'o'
+    document.getElementById('2').textContent = 'O'
+  } else if (g[2].clicked === 'o' && g[6].clicked === 'o') {
+    gameBoard[4].clicked = 'o'
+    document.getElementById('4').textContent = 'O'
+  } else if (g[2].clicked === 'o' && g[4].clicked === 'o') {
+    gameBoard[6].clicked = 'o'
+    document.getElementById('6').textContent = 'O'
+  } 
+}
