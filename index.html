@@ -8,6 +8,19 @@
   <title>Tic-Tac-Toe</title>
 </head>
 <body>
+  <div class="game-score">
+    <h4>Game Score</h4>
+      <div class="player-scores">
+        <div class="player1-total">
+          <h5>Player 1</h5>
+          <p>Wins:</p>
+        </div>
+        <div class="player2-total">
+          <h5>Player 2</h5>
+          <p>Wins:</p>
+        </div>
+      </div>
+  </div>
   <div class="container">
     <button class="rules">How to play</button>
       <div class="rule-set">
@@ -20,15 +33,18 @@
       </div>
     <div class="player1-wins">
       <h1></h1>
+      <button class="button new-round">New Round</button>
       <button class="button new-game">New Game</button>
       
     </div>
     <div class="player2-wins">
       <h1></h1>
+      <button class="button new-round">New Round</button>
       <button class="button new-game">New Game</button>
     </div>
     <div class="tie-game">
       <h1></h1>
+      <button class="button new-round">New Round</button>
       <button class="button new-game">New Game</button>
     </div>
     <div class="header">
@@ -48,7 +64,7 @@
     <div class="game-board game-board-container">
       
     </div>
-    <h3> - TheBoldedPixel</h2>
+    <h3 class="logo"> - TheBoldedPixel</h2>
   </div>
   <script src="app.js"></script>
 </body>

@@ -1,1 +1,1 @@
-Simple tic tac toe game in the browser
+Simple tic tac toe game in the browser.
